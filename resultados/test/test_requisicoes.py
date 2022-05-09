@@ -17,7 +17,7 @@ class AtletasTestCase(APITestCase):
             team='Cross',
             noc='Ant',
         )
-        
+
         self.atleta_2 = Atleta.objects.create(
             name='Roberto Carlos',
             sex='M',
@@ -34,7 +34,7 @@ class AtletasTestCase(APITestCase):
 
     def test_requisicao_post_criar_atlet(self):
         '''Teste para verificar POST para criar um atleta'''
-        
+
         data = {
             'name': 'Adriano da Cruz',
             'sex': 'M',
@@ -47,14 +47,14 @@ class AtletasTestCase(APITestCase):
         response = self.client.post(self.list_url, data=data)
         self.assertEquals(response.status_code, status.HTTP_201_CREATED)
 
-    def test_requisicao_deletar_resultado(self):
-        '''Teste para verificar DELETE de resultado'''
+    def test_requisicao_deletar_atleta(self):
+        '''Teste para verificar DELETE de atleta'''
 
         response = self.client.delete('/atletas/1/')
         self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def test_requisicao_atualizar_resultado(self):
-        '''Teste para verificar PUT para atualizar resultado'''
+    def test_requisicao_atualizar_atleta(self):
+        '''Teste para verificar PUT para atualizar atleta'''
 
         data = {
             'name': 'Yuri Kuvjogi Fernandes',
