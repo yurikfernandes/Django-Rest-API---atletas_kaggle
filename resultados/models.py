@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Atleta(models.Model):
     SEX_OPTIONS = (
         ('M', 'Masculino'),
