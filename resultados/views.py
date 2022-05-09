@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, viewsets
 
+from resultados.filters import ResultadoFilter
 from resultados.models import Atleta, Resultado
 from resultados.serializers import AtletaSerializer, ResultadoSerializer
 
@@ -15,4 +17,5 @@ class ResultadoViewSet(viewsets.ModelViewSet):
     serializer_class = ResultadoSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_class = ResultadoFilter
-    filterset_fields = ('age', 'year', 'season', 'city', 'sport', 'event', 'medal')
+    filterset_fields = ('age', 'year', 'season', 'city',
+                        'sport', 'event', 'medal')
