@@ -2,7 +2,7 @@ from tabnanny import verbose
 
 from django_filters import rest_framework as filters
 
-from resultados.models import Resultado
+from resultados.models import Atleta, Resultado
 
 
 class ResultadoFilter(filters.FilterSet):
@@ -19,3 +19,17 @@ class ResultadoFilter(filters.FilterSet):
         model = Resultado
         fields = ('age', 'year', 'games', 'season',
                   'city', 'sport', 'event', 'medal')
+
+
+class AtletaFilter(filters.FilterSet):
+    name = filters.CharFilter(field_name='name', lookup_expr='icontains')
+    sex = filters.CharFilter(field_name='sex', lookup_expr='iexact')
+    height = filters.CharFilter(field_name='height', lookup_expr='iexact')
+    weight = filters.CharFilter(field_name='weight', lookup_expr='iexact')
+    team = filters.CharFilter(field_name='team', lookup_expr='icontains')
+    noc = filters.CharFilter(field_name='noc', lookup_expr='icontains')
+
+    class Meta:
+        model = Atleta
+        fields = ('height', 'weight', 'sex', 'name',
+                  'team', 'noc')
