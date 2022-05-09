@@ -17,7 +17,7 @@ class AtletasTestCase(APITestCase):
             team='Cross',
             noc='Ant',
         )
-        
+
         self.atleta_2 = Atleta.objects.create(
             name='Roberto Carlos',
             sex='M',
@@ -34,7 +34,7 @@ class AtletasTestCase(APITestCase):
 
     def test_requisicao_post_criar_atlet(self):
         '''Teste para verificar POST para criar um atleta'''
-        
+
         data = {
             'name': 'Adriano da Cruz',
             'sex': 'M',

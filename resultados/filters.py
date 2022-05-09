@@ -1,4 +1,5 @@
 from tabnanny import verbose
+
 from django_filters import rest_framework as filters
 
 from resultados.models import Resultado
