@@ -11,6 +11,7 @@ csv_path = os.path.join(SRC_DIR, "athlete_events.csv")
 
 df = pd.read_csv(csv_path)
 df = df.sort_values(by=['ID'])
+df = df.head(200)
 
 df_atletas = df.copy()
 df_atletas = df_atletas[['ID','Name', 'Sex', 'Height', 'Weight', 'Team', 'NOC']].drop_duplicates(subset=['ID'])
