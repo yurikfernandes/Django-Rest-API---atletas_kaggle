@@ -1,5 +1,5 @@
 def check_only_letters(field):
-    return all([letter.isalpha() for letter in field if letter.strip() != ' '])
+    return all([letter.isalpha() for letter in field if letter.strip() != ''])
     
 def valid_name(name):
     return check_only_letters(name)

@@ -1,5 +1,6 @@
 import os, django
 import pandas as pd
+from tqdm import tqdm
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'setup.settings')
 django.setup()
@@ -11,7 +12,6 @@ csv_path = os.path.join(SRC_DIR, "athlete_events.csv")
 
 df = pd.read_csv(csv_path)
 df = df.sort_values(by=['ID'])
-df = df.head(200)
 
 df_atletas = df.copy()
 df_atletas = df_atletas[['ID','Name', 'Sex', 'Height', 'Weight', 'Team', 'NOC']].drop_duplicates(subset=['ID'])
@@ -23,10 +23,9 @@ df_resultados = df_resultados[['ID', 'Age', 'Games', 'Year', 'Season', 'City', '
 df_resultados.fillna({'Age': 0, 'Medal': ''}, inplace=True)
 dicionario_de_resultados = df_resultados.to_dict('index')
 
-def importe_atletas(data):   
-    count = 0
-    total = len(data)
-    for key in data:
+def importe_atletas(data):
+    print('Cadastrando atletas:')   
+    for key in tqdm(data):
         lista_valores = []
         for column in data[key]:
             lista_valores.append(data[key][column])
@@ -37,13 +36,10 @@ def importe_atletas(data):
                         team=lista_valores[5],
                         noc=lista_valores[6])
         atleta.save()
-        count = count + 1
-        print(f'{ count, total }')
 
 def importe_resultados(data):
-    count = 0
-    total = len(data)
-    for key in data:
+    print('Cadastrando resultados:')   
+    for key in tqdm(data):
         lista_valores = []
         for column in data[key]:
             lista_valores.append(data[key][column])
@@ -58,8 +54,6 @@ def importe_resultados(data):
                         event=lista_valores[7],
                         medal=lista_valores[8])
         resultado.save()
-        count = count + 1
-        print(f'{ count, total }')
 
 importe_atletas(dicionario_de_atletas)
 importe_resultados(dicionario_de_resultados)
