@@ -13,3 +13,6 @@ class AtletaViewSet(viewsets.ModelViewSet):
 class ResultadoViewSet(viewsets.ModelViewSet):
     queryset = Resultado.objects.all()
     serializer_class = ResultadoSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_class = ResultadoFilter
+    filterset_fields = ('age', 'year', 'season', 'city', 'sport', 'event', 'medal')
