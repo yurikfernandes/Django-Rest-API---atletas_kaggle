@@ -9,10 +9,10 @@ class Atleta(models.Model):
 
     name = models.CharField(max_length=150, null=False)
     sex = models.CharField(max_length=1, choices=SEX_OPTIONS, null=False)
-    height = models.IntegerField(default=None)
-    weight = models.IntegerField(default=None)
+    height = models.PositiveSmallIntegerField(default=None, help_text='Valor em centímetros. Ex.: 170.')
+    weight = models.PositiveSmallIntegerField(default=None, help_text='Valor em kilos. Ex.: 80.')
     team = models.CharField(max_length=50, null=False)
-    noc = models.CharField(max_length=3, null=False)
+    noc = models.CharField(max_length=3, null=False, help_text='NOC: National Olympic Committee.')
 
     def __str__(self):
         return self.name
@@ -33,10 +33,10 @@ class Resultado(models.Model):
     )
 
     atleta_id = models.ForeignKey(
-        Atleta, on_delete=models.CASCADE, verbose_name='atleta.name')
-    age = models.IntegerField()
-    games = models.CharField(max_length=20, null=False)
-    year = models.IntegerField(blank=False, null=False)
+        'Atleta', on_delete=models.CASCADE, verbose_name='Athlete', related_name='resultados')
+    age = models.PositiveSmallIntegerField()
+    games = models.CharField(max_length=20, editable=False, null=False)
+    year = models.PositiveSmallIntegerField(blank=False, null=False)
     season = models.CharField(max_length=6, choices=SEASON_OPTIONS, null=False)
     city = models.CharField(max_length=30, null=False)
     sport = models.CharField(max_length=30, null=False)
@@ -47,3 +47,12 @@ class Resultado(models.Model):
     def save(self, *args, **kwargs):
         self.games = str(self.year) + ' ' + self.season
         super(Resultado, self).save(*args, **kwargs)
+
+    def __str__(self):
+
+        medal = ''
+        if self.medal == '':
+            medal = 'No medal'
+        else:
+            medal = self.medal
+        return self.event + ' - ' + medal

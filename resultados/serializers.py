@@ -8,9 +8,13 @@ from resultados.validators import (valid_age, valid_city, valid_event,
 
 
 class AtletaSerializer(serializers.ModelSerializer):
+
+    resultados = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Atleta
-        fields = '__all__'
+        # fields = '__all__'
+        fields = ['name', 'sex', 'height', 'weight', 'team', 'noc', 'resultados']
 
     def validate(self, data):
         if not valid_name(data['name']):
@@ -35,9 +39,6 @@ class AtletaSerializer(serializers.ModelSerializer):
 
 
 class ResultadoSerializer(serializers.ModelSerializer):
-
-    nome_atleta = serializers.ReadOnlyField(source='atleta.name')
-
     class Meta:
         model = Resultado
         exclude = []
